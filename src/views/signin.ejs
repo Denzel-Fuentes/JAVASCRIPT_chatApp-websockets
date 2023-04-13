@@ -1,0 +1,28 @@
+<%- layout('layouts/main.ejs') %>
+
+    <div class="box">
+        <form action="/signin" method="POST">
+            <h3>NodeMailer</h3>
+            <div class="box-input">
+                <input type="email" name="email" required="required">
+                <span>Correo electrónico</span>
+                <i></i>
+
+            </div>
+            <div class="box-input">
+                <input type="password" name="password" id=""
+                    required="required">
+                <span>Contraseña</span>
+                <i></i>
+            </div>
+            <div class="links">
+                <a href="#">¿Ya tienes cuenta?, Inicia Sesión</a>
+            </div>
+            <button type="submit">
+                Registrarse
+            </button>
+        </form>
+    </div>
+    <div class="banner-img">
+        <img src="email.png" alt="">
+    </div>
