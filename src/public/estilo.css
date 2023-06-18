@@ -1,0 +1,84 @@
+.scroll-container {
+    height: 99%;
+    /* Ajusta la altura deseada */
+    overflow-y: auto;
+    scrollbar-width: thin;
+    /* Ancho de la barra de desplazamiento */
+    scrollbar-color: #ff0000 #0000ff;
+    /* Color de la barra de desplazamiento */
+}
+
+body {
+    background-color: black;
+}
+
+/* Estilos para la barra de desplazamiento en navegadores WebKit (Chrome, Safari) */
+.scroll-container::-webkit-scrollbar {
+    width: 8px;
+    /* Ancho de la barra de desplazamiento */
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+    background-color: #ff0000;
+    /* Color del pulgar de la barra de desplazamiento */
+}
+
+.scroll-container::-webkit-scrollbar-track {
+    background-color: #0000ff;
+    /* Color de la pista de la barra de desplazamiento */
+}
+
+
+
+
+.chat-online {
+    color: #34ce57
+}
+
+.chat-offline {
+    color: #e4606d
+}
+
+.chat-messages {
+    display: flex;
+    flex-direction: column;
+    max-height: 77vh;
+    color: black;
+    overflow-y: scroll
+}
+
+.chat-message-left,
+.chat-message-right {
+    display: flex;
+    flex-shrink: 0
+}
+
+.chat-message-left {
+    margin-right: auto
+}
+
+.chat-message-right {
+    flex-direction: row-reverse;
+    margin-left: auto
+}
+
+.py-3 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+}
+
+.px-4 {
+    padding-right: 1.5rem !important;
+    padding-left: 1.5rem !important;
+}
+
+.flex-grow-0 {
+    flex-grow: 0 !important;
+}
+
+.border-top {
+    border-top: 1px solid #dee2e6 !important;
+}
+.contact:hover{
+    background-color: #0000ff;
+}

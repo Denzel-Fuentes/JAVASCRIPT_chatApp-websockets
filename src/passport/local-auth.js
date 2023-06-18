@@ -12,6 +12,7 @@ passport.deserializeUser(async (id, done) => {
     done(null, User, )
 })
 passport.use('local-signup', new LocalStrategy({
+    
     usernameField: 'email',
     passwordField: 'password',
     passReqToCallback: true
@@ -20,9 +21,10 @@ passport.use('local-signup', new LocalStrategy({
     try {
         const User = await user.findOne({email: email});
         if(User){
-            return done(null, false, req.flash('signupMessage', 'El Email ya esta asociado a una cuenta'))
+            return done(null,User)
         } else {
             const newUser = new user();
+            newUser.name = req.body.name;
             newUser.email = email;
             newUser.password = newUser.encryptPassword(password);
             await newUser.save();
@@ -32,20 +34,4 @@ passport.use('local-signup', new LocalStrategy({
         done(err);
     }
     
-}))
-
-passport.use('local-signin', new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password',
-    passReqToCallback: true
-}, async (req, email, password, done) => {
-    const User = await user.findOne({email: email});
-    if(!User){
-        return done(null,false, req.flash('signinMessage', 'Usuario no encontrado'))
-
-    }
-    if(!User.compararContraseña(password)){
-        return done(null, false, req.flash('signinMessage', "La contraseña no coincide"))
-    }
-    done(null,User);
 }))

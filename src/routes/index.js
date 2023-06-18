@@ -2,9 +2,10 @@ const { Router } = require('express');
 const nodemailer = require ('nodemailer')
 const router = Router();
 const passport = require('passport')
+const User = require('../models/user')
 require('../passport/local-auth.js')
 router.get('/', (req,res, next) => {
-  res.render('index');
+  res.render('signin');
 });
 
 router.get('/signin', (req,res, next) => {
@@ -45,8 +46,12 @@ function isAuthenticated(req,res ,next)  {
   res.redirect('/')
 } 
 
-router.get('/email', isAuthenticated,(req, res ,next) => {
-  res.render('email')
+router.get('/email', isAuthenticated,async (req, res ,next) => {
+  const id = req.session.passport.user;
+  const user = await User.findById(id);
+  
+  console.log(user);
+  res.render('main',{user});
 })
 
 router.post('/send-email', async (req,res)  =>{
@@ -86,5 +91,6 @@ const transporter =   nodemailer.createTransport({
     res.redirect('/success.html')
     
 })
+
 
 module.exports = router 
