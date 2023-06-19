@@ -86,43 +86,41 @@ body {
     padding-left: 60px;
 }
 .info-contacto-destino{
-    visibility: hidden;
+   visibility: hidden;
+   transition: visibility 1s linear 1s, opacity 1s linear;
 }
-
- .present{
-     position: relative;
-     bottom: 30%;
-     height: 100vh;
-     width: 100%;
- }
- .caja-texto{
-         position: absolute;
-         height: 50%;
-         width: 50%;
-         top: 20%;
-         left: 50%;
-         transform: translate(-50%, -50%);
-       
- }
- .texto-logo{
-     font-size:5rem;
-     text-align: center
- }
- .texto-eslogan{
-     font-size:2rem;
-     text-align: center;
- }
- .logo-imagen{
-     position: relative;
-     width: 25%;
-     top: 85%;
-     left: 50%;
-     transform: translate(-50%, -50%);
-    
- }
- .text-color{
-    background-color: #86b7fe75;
- }
- .alert-N{
-    background-color: #029aa6;
- }
+.present{
+    display: none;
+    position: relative;
+    bottom: 30%;
+    height: 100vh;
+    width: 100%;
+}
+.caja-texto{
+        position: absolute;
+        height: 50%;
+        width: 50%;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      
+}
+.texto-logo{
+    font-size:5rem;
+    text-align: center
+}
+.texto-eslogan{
+    font-size:2rem;
+    text-align: center;
+}
+.logo-imagen{
+    position: relative;
+    width: 25%;
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+   
+}
+.alert{
+    background-color: #e4606d;
+}

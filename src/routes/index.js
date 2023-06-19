@@ -19,10 +19,6 @@ router.post('/signin', passport.authenticate('local-signup', {
   passReqToCallback: true
 }));
 
-router.get('/login', (req,res, next) => {
-  res.render('login');
-});
-
 
 router.post('/login',passport.authenticate('local-signin', {
   successRedirect: '/email',
@@ -31,13 +27,15 @@ router.post('/login',passport.authenticate('local-signin', {
 }));
 
 router.get('/logout', (req, res , next) => {
-  req.logout();
-  res.redirect('/');
+  req.logout(function(err) {
+    if (err) {
+      // Manejar el error de cierre de sesión
+      return next(err);
+    }
+    res.redirect('/signin');
+  });
 })
 
-router.get('/profile', isAuthenticated,(req, res ,next) => {
-  res.render('profile')
-})
 
 function isAuthenticated(req,res ,next)  {
   if(req.isAuthenticated()){
@@ -51,7 +49,7 @@ router.get('/email', isAuthenticated,async (req, res ,next) => {
   const user = await User.findById(id);
   
   console.log(user);
-  res.render('main',{user});
+  res.render('main',{user,uri:process.env.GetAway || 'http://localhost:3000/mensajes' });
 })
 
 router.post('/send-email', async (req,res)  =>{

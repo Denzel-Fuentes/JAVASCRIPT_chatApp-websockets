@@ -7,7 +7,6 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const Database = require('./database');
 const socketChat = require('./socket');
-const sharedSession = require('express-socket.io-session')
 require('./passport/local-auth');
 
 class App {
@@ -40,6 +39,7 @@ class App {
       next();
     });
     this.app.use(require('./routes/index'));
+    this.app.use(require('./routes/mensajes'))
   }
 
   start() {

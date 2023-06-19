@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const mensajeSchema = new Schema({
     remitente:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId,
         ref:'usuarios',
     },
     destinatario:{
@@ -11,6 +11,8 @@ const mensajeSchema = new Schema({
         ref:'usuarios',
     },
     contenido : String,
+    hora:String,
+    minutos:String,
     fecha:{
         type:Date,
         default:Date.now
@@ -19,4 +21,4 @@ const mensajeSchema = new Schema({
 });
 
 
-module.exports = mongoose.model('mensaje',mensajeSchema)
+module.exports = mongoose.model('Mensaje',mensajeSchema)
