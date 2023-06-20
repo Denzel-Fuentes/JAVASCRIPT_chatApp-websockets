@@ -3,7 +3,7 @@ const Mensaje = require('../models/mensajes');
 const router = Router();
 
 
-router.post('/mensajes',async (req,res)=>{
+router.post('/mensajes',async (req,res)=>{  
     const { remitente,destinatario } = req.body;
     Mensaje.find({
         $or: [
@@ -21,4 +21,5 @@ router.post('/mensajes',async (req,res)=>{
           res.status(500).json({ error: 'Error en el servidor' });
         });
 })
+
 module.exports = router 

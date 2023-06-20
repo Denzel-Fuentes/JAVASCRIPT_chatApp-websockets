@@ -7,10 +7,16 @@ class Database {
   }
 
   connect() {
-  
-    mongoose.connect(this.URI,{})
+    mongoose.connect(this.URI, {})
       .then(db => console.log('Se ha conectado a la base de datos'))
       .catch(err => console.error(err));
+  }
+
+  static getInstance() {
+    if (!Database.instance) {
+      Database.instance = new Database();
+    }
+    return Database.instance;
   }
 }
 

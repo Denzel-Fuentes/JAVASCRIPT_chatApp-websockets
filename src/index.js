@@ -65,14 +65,14 @@ class App {
     this.server = this.app.listen(this.port, () => {
       console.log(`Server running on port ${this.port}`);
     });
-
+    
     // Instancia de ChatSocket y pasa el servidor http y la sesión
     new socketChat(this.server, this.session);
   }
 }
 
 const app = new App();
-const db = new Database();
-db.connect();
+const dbInstance = Database.getInstance();
+dbInstance.connect();
 app.configure();
 app.start();

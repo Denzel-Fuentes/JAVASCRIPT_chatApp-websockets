@@ -1,11 +1,6 @@
 const SocketIO = require("socket.io");
 const sharedSession = require('express-socket.io-session')
 const Mensaje = require('./models/mensajes');
-const path = require('path');
-
-const saveMessagesPath = path.join(__dirname, 'procesos', 'saveMessages.js');
-const { fork } = require('child_process');
-const SaveMessage = fork(saveMessagesPath);
 const { default: mongoose } = require('mongoose');
 const { ObjectId } = mongoose.Types;
 class ChatSocket {
