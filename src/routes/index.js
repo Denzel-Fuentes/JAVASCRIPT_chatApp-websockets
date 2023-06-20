@@ -5,7 +5,7 @@ const passport = require('passport')
 const User = require('../models/user')
 require('../passport/local-auth.js')
 router.get('/', (req,res, next) => {
-  res.render('signin');
+  res.json({msg:"signin"});
 });
 
 router.get('/signin', (req,res, next) => {
