@@ -14,7 +14,7 @@ require('./passport/local-auth');
 class App {
   constructor() {
     this.app = express();
-    this.port = 3000;
+    this.port = process.env.PORT || 3000;
     this.session;
   }
 
