@@ -1,7 +1,7 @@
 # UNICHAT
 Unichat es una aplicacion de mensajeria simple y sencilla que permite enviar mensajes a travez de websockets , ademas de mantener un registro de los mensajes enviados
 ## Dependencias
-Para comenzar a preparar el proyecto primero se debe de ejecutar el siguiente comando, que instalara todos los paquetes que se usaran  en el proyecto
+Para comenzar a preparar el proyecto primero se debe de tener instaldo Node.js y ejecutar el siguiente comando, que instalara todos los paquetes que se usaran  en el proyecto
 ```cmd
 npm install
 ```
@@ -15,3 +15,9 @@ Para empezar a ejecutar el programa debera de ejecutar el siguiente comando
 ```cmd
 npm run dev
 ```
+## Colaboradores
+Desarrolador : [Dario Guzman Robles](https://github.com/DarioGB1)
+
+Roles:
+- Desarrollo de la interfaz de usuario para el login 
+- Desarrollo y configuracion de las librerias para las sessiones de los usuarios  
