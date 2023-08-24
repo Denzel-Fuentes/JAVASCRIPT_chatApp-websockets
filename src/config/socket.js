@@ -1,12 +1,12 @@
 const SocketIO = require("socket.io");
 const sharedSession = require('express-socket.io-session')
-const Mensaje = require('./models/mensajes');
+const Mensaje = require('../models/mensajes');
 const { default: mongoose } = require('mongoose');
 const { ObjectId } = mongoose.Types;
 class ChatSocket {
   #io;
   #socketMap;
-  #Mensaje = require('./models/mensajes.js');
+  #observers;
 
   constructor(server, sesion) {
     this.#io = SocketIO(server);
@@ -14,6 +14,24 @@ class ChatSocket {
     this.#io.use(sharedSession(sesion, {
       autoSave: true
     }));
+    this.#observers = [];
+  }
+
+  subscribe(observer) {
+    this.#observers.push(observer);
+  }
+
+  unsubscribe(observer) {
+    const index = this.#observers.indexOf(observer);
+    if (index !== -1) {
+      this.#observers.splice(index, 1);
+    }
+  }
+
+  notify(event, data) {
+    for (const observer of this.#observers) {
+      observer.update(event, data);
+    }
   }
 
   handleConnection(socket) {
@@ -29,17 +47,7 @@ class ChatSocket {
 
   async handleChatMessage(socket, data) {
 
-    const remitenteId = new ObjectId(data.id_db);
-    const destinatarioId = new ObjectId(data.id_db_destino);
-    const mensaje = new Mensaje({
-      remitente: remitenteId,
-      destinatario: destinatarioId,
-      contenido: data.message,
-      hora:data.hora,
-      minutos:data.minutos
-    });
-    const newMensaje = await mensaje.save();
-    console.log(newMensaje);
+    this.notify('chat:message',data)
     this.#io.to(data.id_socket_destino).emit("chat:message", data);
   }
 

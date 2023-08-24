@@ -7,8 +7,11 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const Redis = require('ioredis');
 const RedisStore = require('connect-redis')(session);
-const Database = require('./database');
-const socketChat = require('./socket');
+const Database = require('./config/database');
+const socketChat = require('./config/socket');
+const Mensaje = require('./models/mensajes.js');
+const { default: mongoose } = require('mongoose');
+const { ObjectId } = mongoose.Types;
 require('./passport/local-auth');
 
 class App {
@@ -27,7 +30,6 @@ class App {
     this.app.use(morgan('dev'));
     this.app.use(express.urlencoded({ extended: false }));
 
-    // Configurar instancia de Redis
     const redisClient = new Redis({
       host: process.env.REDIS_HOST || '127.0.0.1',
       port: process.env.REDIS_PORT || 6379,
@@ -62,12 +64,28 @@ class App {
   }
 
   start() {
+    const saveMessage = {
+      async update(event,data){
+        const remitenteId = new ObjectId(data.id_db);
+        const destinatarioId = new ObjectId(data.id_db_destino);
+        const mensaje = new Mensaje({
+          remitente: remitenteId,
+          destinatario: destinatarioId,
+          contenido: data.message,
+          hora:data.hora,
+          minutos:data.minutos
+        });
+        const newMensaje = await mensaje.save();
+        console.log(newMensaje);
+      }
+    }
     this.server = this.app.listen(this.port, () => {
       console.log(`Server running on port ${this.port}`);
     });
     
     // Instancia de ChatSocket y pasa el servidor http y la sesión
-    new socketChat(this.server, this.session);
+    const chatSocket = new socketChat(this.server, this.session);
+    chatSocket.subscribe(saveMessage);
   }
 }
 
